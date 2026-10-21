@@ -45,6 +45,12 @@ public class PlayerMovement : MonoBehaviour
                     movement * Time.deltaTime * speed, ForceMode.VelocityChange
                 );
             }
+            if (movement == Vector3.zero)
+            {
+                Rigidbody rb = this.GetComponent<Rigidbody>();
+                rb - linearVelocity = new Vector3(rb.linearVelocity.x * 0.9f, rb.linearVelocity.y, rb.linearVelocity.z * 0.9f);
+            }
+
 
         }
     }
