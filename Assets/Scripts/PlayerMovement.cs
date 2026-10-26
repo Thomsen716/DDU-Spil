@@ -4,15 +4,13 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     Keyboard keyboard;
-    public float speed = 5f;
+    public float speed = 1f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         keyboard = Keyboard.current;
     }
-
-
 
     // Update is called once per frame
     void Update()
@@ -38,20 +36,23 @@ public class PlayerMovement : MonoBehaviour
                 movement += Vector3.right;
             }
 
-            //transform.Translate(movement * Time.deltaTime * speed);
-            if (this.GetComponent<Rigidbody>().linearVelocity.magnitude < speed)
-            {
-                this.GetComponent<Rigidbody>().AddForce(
-                    movement * Time.deltaTime * speed, ForceMode.VelocityChange
-                );
-            }
-            if (movement == Vector3.zero)
-            {
-                Rigidbody rb = this.GetComponent<Rigidbody>();
-                rb - linearVelocity = new Vector3(rb.linearVelocity.x * 0.9f, rb.linearVelocity.y, rb.linearVelocity.z * 0.9f);
-            }
+            Rigidbody rb = this.GetComponent<Rigidbody>();
+            /* transform.Translate(movement * Time.deltaTime * speed); */
 
+            rb.MovePosition(rb.position + movement * Time.deltaTime * speed);
+
+            // if (this.GetComponent<Rigidbody>().linearVelocity.magnitude < speed)
+            // {
+            //     this.GetComponent<Rigidbody>().AddForce(
+            //         movement * Time.deltaTime * speed, ForceMode.VelocityChange
+            //     );
+            // }
+            // if (movement == Vector3.zero)
+            // {
+            //     rb.linearVelocity = new Vector3(rb.linearVelocity.x * 0.95f, rb.linearVelocity.y, rb.linearVelocity.z * 0.95f);
+            // }
 
         }
     }
 }
+
