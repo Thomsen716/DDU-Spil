@@ -13,6 +13,9 @@ public class CarControl : MonoBehaviour
     private WheelControl[] wheels;
     private Rigidbody rigidBody;
 
+    public Camera cam;
+    private Vector3 cameraOffset;
+
     private CarInputActions carControls; // Reference to the new input system
 
     void Awake()
@@ -41,6 +44,8 @@ public class CarControl : MonoBehaviour
 
         // Get all wheel components attached to the car
         wheels = GetComponentsInChildren<WheelControl>();
+
+        cameraOffset = cam.transform.position - rigidBody.transform.position;
     }
 
     // FixedUpdate is called at a fixed time interval
@@ -89,5 +94,6 @@ public class CarControl : MonoBehaviour
                 wheel.WheelCollider.brakeTorque = Mathf.Abs(vInput) * brakeTorque;
             }
         }
+        cam.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, rigidBody.transform.position.z + cameraOffset.z);
     }
 }
